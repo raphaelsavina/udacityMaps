@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         clean: ["dist/**"],
         uglify: {
             files: {
-                src: "src/js/*.js",
+                src: ["src/js/*.js", "!src/js/knockout-3.4.0.min.js"],
                 dest: "dist/js",
                 ext: ".min.js",
                 expand: true,
@@ -60,11 +60,17 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            main: {
+            images: {
                 expand: true,
                 cwd: 'src/images',
                 src: ['*.*'],
                 dest: 'dist/images',
+            },
+            knockout: {
+                expand: true,
+                cwd: 'src/js',
+                src: ['knockout-3.4.0.min.js'],
+                dest: 'dist/js',
             }
         },
         watch: {
