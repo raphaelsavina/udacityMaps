@@ -1,20 +1,28 @@
 /* Styles for Google Maps */
-
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
-
 #map {
     width: 100%;
     height: 100%;
 }
 
+/* Default Style to center an element */
 .center {
 	margin: auto auto;
 }
 
+/* Default Style to hide an element */
 .hide {
 	display: none;
+}
+
+/* Style for the admin card to add location in firebase */
+.admin-inputcard {
+	min-width: 80%
+}
+.mdl-textfield {
+	width: 90%
 }
