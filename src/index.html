@@ -11,10 +11,9 @@
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!--
     <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
-    -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js'></script>
 
     <!-- build:css css/styles.min.css -->
     <link rel="stylesheet" href="css/styles.css">
@@ -32,32 +31,25 @@
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                     <!-- MDL Spinner Component -->
-    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                <div class="mdl-spinner mdl-js-spinner is-active"></div>
 
                 <div class="header-hello" id="hello"></div>
-                <!-- Navigation. We hide it in small screens. -->
-                <!-- Expandable Textfield -->
-                <form action="#">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                        <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-                            <i class="material-icons">search</i>
-                        </label>
-                        <div class="mdl-textfield__expandable-holder">
-                            <input class="mdl-textfield__input" type="text" id="sample6">
-                            <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
-                        </div>
-                    </div>
-                </form>
             </div>
         </header>
 
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">My Udacity Map</span>
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                    <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder">
+                    <input class="mdl-textfield__input" type="text" id="search" data-bind="value: searchLocation, valueUpdate: 'keyup'" autocomplete="off">
+                    <label class="mdl-textfield__label" for="search">You can search location</label>
+                </div>
+            </div>
+            <nav class="mdl-navigation" data-bind="foreach: filteredLocations">
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect" data-bind="text: title"></button>
             </nav>
         </div>
 
@@ -97,18 +89,16 @@
     <script rel="stylesheet" src="js/mapping.js"></script>
     <!-- /build -->
 
-    <script type="text/javascript">
-    var LatLng = {
-        lat: 53.11,
-        lng: -6.23
-    };
+    <!-- build:js js/getdata.min.js -->
+    <script rel="stylesheet" src="js/getdata.js"></script>
+    <!-- /build -->
 
-    var title = 'Hello World!';
+    <!-- build:js js/octopus.min.js -->
+    <script rel="stylesheet" src="js/octopus.js"></script>
+    <!-- /build -->
 
-    addMarker(LatLng, title, map);
-
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU&callback=initGoogleMaps">
+    <!-- key=AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU&callback=initGoogleMaps">
     </script>
 
 
