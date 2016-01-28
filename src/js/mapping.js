@@ -1,56 +1,45 @@
-// varaiable to store the location, fixed as below or updated from geolocationn if available.
+// varaiable to store the location, fixed to the center of map as below or updated from geolocationn if available.
 var initialLatLng = {
-    lat: -25.363,
-    lng: 131.044
+    lat: 0,
+    lng: 0
 };
+// Settings for maps
+var mapsSettings = {
+    zoom: 6,
+    center: initialLatLng
+}
+
 
 // Make the map a global viriable so it will be easier to manipulate
 var map;
 
-var contentString = '<div id="content">' +
+var markers = []
+
+var infoWindowsHTML = '<div id="content" data-bind="foreach: locationsObservableArray">' +
     '<div id="siteNotice">' +
     '</div>' +
-    '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+    '<h1 id="firstHeading" class="firstHeading" data-bind="text: title"></h1>' +
     '<div id="bodyContent">' +
-    '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-    'sandstone rock formation in the southern part of the ' +
-    'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-    'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-    '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-    'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-    'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-    'Aboriginal people of the area. It has many springs, waterholes, ' +
-    'rock caves and ancient paintings. Uluru is listed as a World ' +
-    'Heritage Site.</p>' +
-    '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-    'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-    '(last visited June 22, 2009).</p>' +
+    '<p data-bind="text: description"></p>' +
+    '<p></p>' +
     '</div>' +
     '</div>';
 
-
+/**
+ * Class
+ * @constructor
+ * @param {...}
+ * @return {Boolean} Returns true on success
+ * @private
+ */
 var initGoogleMaps = function() {
     if ("geolocation" in navigator) {
         console.log("geolocation is available");
         navigator.geolocation.getCurrentPosition(geoSucces, geoFail);
     } else {
-        console.log("geolocation IS NOT available")
+        console.log("geolocation IS NOT available");
+        geoFail();
     }
-    // var infowindow = new google.maps.InfoWindow({
-    //     content: contentString
-    // });
-    // var map = new google.maps.Map(document.getElementById('map'), {
-    //     zoom: 16,
-    //     center: initialLatLng
-    // });
-    // var marker = new google.maps.Marker({
-    //     position: initialLatLng,
-    //     map: map,
-    //     title: 'Hello World!'
-    // });
-    // marker.addListener('click', function() {
-    //     infowindow.open(map, marker);
-    // });
 };
 
 // success - get the location of the device
@@ -58,30 +47,40 @@ var geoSucces = function(position) {
     $(".mdl-spinner").removeClass("is-active");
     initialLatLng.lat = position.coords.latitude;
     initialLatLng.lng = position.coords.longitude;
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: initialLatLng,
-        scaleControl: true
-    });
+    mapsSettings.center = initialLatLng;
+    map = new google.maps.Map(document.getElementById("map"), mapsSettings);
+    mapReady();
 };
 
 // fail - can't the location of the device
 var geoFail = function() {
     console.log("Unable to retrieve your location");
     $(".mdl-spinner").remove();
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: initialLatLng
-    });
-}
+    map = new google.maps.Map(document.getElementById("map"), mapsSettings);
+    mapReady();
+};
 
-var addMarker = function(location, text, map) {
+var addMarker = function(location, text, id, map) {
+    var infowindow = new google.maps.InfoWindow({
+        content: infoWindowsHTML
+    });
     var newMarker = new google.maps.Marker({
         position: location,
         map: map,
-        title: text
+        title: text,
+        marker_id: id,
     });
-    // marker.addListener('click', function() {
-    //     infowindow.open(map, marker);
-    // });
+    newMarker.addListener('click', function() {
+        infowindow.open(map, newMarker);
+    });
+    markers.push(newMarker);
 };
+
+var removeAllMarkers = function() {
+    for (var m in markers) {
+        markers[m].setMap(null);
+    }
+    markers = [];
+}
+
+
