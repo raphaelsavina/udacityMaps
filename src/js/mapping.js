@@ -102,6 +102,12 @@ var addMarker = function(location, title, description, id, url, map) {
         infowindow.open(map, newMarker);
         // center the map on the clicked marker
         map.setCenter(newMarker.getPosition());
+        // make the marker bounce
+        newMarker.setAnimation(google.maps.Animation.BOUNCE);
+        // bounce for 2 seconds only
+        setTimeout(function(){
+                  newMarker.setAnimation(null);
+        }, 2000);
     });
     // add this new marker to the gloabl array of displayed marker
     markers.push(newMarker);
