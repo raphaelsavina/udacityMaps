@@ -1,49 +1,44 @@
-// varaiable to store the location, fixed to the center of map as below or updated from geolocationn if available.
+/** Defaut settings for maps including variable with default location,
+    fixed to the center of the map as below, would be replace
+    by geolocationn if available. */
 var initialLatLng = {
     lat: 0,
     lng: 0
 };
-// Settings for maps
 var mapsSettings = {
-    zoom: 6,
+    zoom: 3,
     center: initialLatLng
 }
-
 
 // Make the map a global viriable so it will be easier to manipulate
 var map;
 
+// Make the locations a global viriable so it will be easier to access
 var markers = []
 
-var infoWindowsHTML = '<div id="content" data-bind="foreach: locationsObservableArray">' +
-    '<div id="siteNotice">' +
-    '</div>' +
-    '<h1 id="firstHeading" class="firstHeading" data-bind="text: title"></h1>' +
-    '<div id="bodyContent">' +
-    '<p data-bind="text: description"></p>' +
-    '<p></p>' +
-    '</div>' +
-    '</div>';
+/** HTML for the Google Maps InfoWindows with 3 variables:
+    {{url}} : url with photo from this location
+    {{title}}: title for this location
+    {{description}}: short description for this location */
+var templateInfoWindowsHTML = "<div class='info-card-wide' style='background: url(\"{{url}}\") center / cover;'><div class='mdl-card__title'></div><div class='info-card-text'><h5>{{title}}</h5>{{description}}</div></div>";
 
-/**
- * Class
- * @constructor
- * @param {...}
- * @return {Boolean} Returns true on success
- * @private
+/** function that will be callback by maps.googleapis.com/maps/api/js
  */
 var initGoogleMaps = function() {
+    // can we get the geolocation in this browser?
     if ("geolocation" in navigator) {
         console.log("geolocation is available");
-        navigator.geolocation.getCurrentPosition(geoSucces, geoFail);
+        // Yes, trying to get it, if we can go to geoSuccess(), if not go to geoFail()
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoFail);
     } else {
         console.log("geolocation IS NOT available");
+        // No, we go to geoFail()
         geoFail();
     }
 };
 
-// success - get the location of the device
-var geoSucces = function(position) {
+// Function call successfull access to device location
+var geoSuccess = function(position) {
     $(".mdl-spinner").removeClass("is-active");
     initialLatLng.lat = position.coords.latitude;
     initialLatLng.lng = position.coords.longitude;
@@ -60,18 +55,20 @@ var geoFail = function() {
     mapReady();
 };
 
-var addMarker = function(location, text, id, map) {
+var addMarker = function(location, title, description, id, url, map) {
+    var infoWindowsHTML = templateInfoWindowsHTML.replace(/{{title}}/g, title).replace(/{{description}}/g, description).replace("{{url}}", url);
     var infowindow = new google.maps.InfoWindow({
         content: infoWindowsHTML
     });
     var newMarker = new google.maps.Marker({
         position: location,
         map: map,
-        title: text,
-        marker_id: id,
+        title: title,
+        markerID: id
     });
     newMarker.addListener('click', function() {
         infowindow.open(map, newMarker);
+        map.setCenter(newMarker.getPosition());
     });
     markers.push(newMarker);
 };
@@ -82,5 +79,4 @@ var removeAllMarkers = function() {
     }
     markers = [];
 }
-
 
