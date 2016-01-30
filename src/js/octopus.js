@@ -1,11 +1,9 @@
 /*
    octopus.js
 
-   Variables and functions fo rthe ViewModel
+   Variables and functions for the ViewModel
 
 */
-
-
 
 //  Have all the locations in a global variable
 var locations = [];
@@ -22,12 +20,13 @@ var viewModel = function() {
     // init and define search observable
     self.searchLocation = ko.observable('');
     self.searchLocation.subscribe(function(value) {
-        if (value == "") {
+        var data;
+        if (value === "") {
             // if value empty: not filtered, use all locations
-            var data = locations;
+            data = locations;
         } else {
             // if value: filter locations to keep only ones containing "value"
-            var data = ko.utils.arrayFilter(self.allLocations(), function(item) {
+            data = ko.utils.arrayFilter(self.allLocations(), function(item) {
                 if (item.title.toLowerCase().indexOf(value.trim().toLowerCase()) > -1) {
                     return true;
                 }
@@ -52,7 +51,7 @@ var mapReady = function() {
         displayMarkers(locations);
         ko.applyBindings(new viewModel());
     });
-}
+};
 
 /*  Function to display all the makers
     parameter: an array with all the markers
@@ -71,13 +70,13 @@ var displayMarkers = function(markersToDisplay) {
             position lat + lng
             title of the location
             description of the location
-            firebase id of the location (for future use)
+            firebase id of the location (for TODO use)
             url of the photo
             our map
         */
         addMarker(position, markersToDisplay[l].title, markersToDisplay[l].description, markersToDisplay[l].id, markersToDisplay[l].url, map);
     }
-}
+};
 
 /*  Function to be attached (in view model) to the each locations.
     Will open by simulating 'click' on marker, the info window
