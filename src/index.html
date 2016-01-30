@@ -18,27 +18,13 @@
     <!-- build:css css/styles.min.css -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- /build -->
+
 </head>
 
 <body>
-
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <span class="mdl-layout-title">My Udacity Map</span>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                    <!-- MDL Spinner Component -->
-                <div class="mdl-spinner mdl-js-spinner is-active"></div>
-
-                <div class="header-hello" id="hello"></div>
-            </div>
-        </header>
-
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">My Udacity Map</span>
+            <span class="mdl-layout-title">My Photos Map</span>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
                     <i class="material-icons">search</i>
@@ -49,39 +35,12 @@
                 </div>
             </div>
             <nav class="mdl-navigation" data-bind="foreach: filteredLocations">
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect" data-bind="text: title"></button>
+                <button class="mdl-button" data-bind="click: openInfoWindow, text: title, attr: {id: $index}"></button>
             </nav>
+                <!-- Spinner -->
+            <div class="mdl-spinner mdl-js-spinner is-active center"></div>
         </div>
-
-        <main class="mdl-layout__content hide" style="max-width: 50%">
-            <div class="page-content">
-
-                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">Welcome</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia...
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              Get Started
-            </a>
-                    </div>
-                    <div class="mdl-card__menu">
-                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                            <i class="material-icons">share</i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-
-
-
     </div>
-
 
     <div id="map"></div>
 
@@ -97,7 +56,7 @@
     <script rel="stylesheet" src="js/octopus.js"></script>
     <!-- /build -->
 
-    <!-- key=AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU -->
+    <!-- my key: AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU&callback=initGoogleMaps">
     </script>
 
