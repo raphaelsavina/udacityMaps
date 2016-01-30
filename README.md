@@ -18,7 +18,7 @@ It means the server is up and running on your computer on port 8000. You can typ
 
 ### Build:
 Use ```grunt``` to get the processed files in ```/dist``` based on the source in ```/src```.
-The first time, from a terminal, navigate at the root of the project, where ```gruntfile.js``` is and type ```npm install```. This will read the ```pacakage.json``` files and install all the grunt dependencies you need.
+The first time, from a terminal, navigate at the root of the project, where ```gruntfile.js``` is and type ```npm install```. This will read the ```pacakage.json``` files and install all the grunt dependencies you need. There is also a ```watch``` process for developing and ```test``` fro js and css lint. 
 
 ## ToDo:
 - autoclosed infoWindows  when opening a second infoWindow
