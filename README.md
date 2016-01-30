@@ -21,5 +21,6 @@ Use ```grunt``` to get the processed files in ```/dist``` based on the source in
 The first time, from a terminal, navigate at the root of the project, where ```gruntfile.js``` is and type ```npm install```. This will read the ```pacakage.json``` files and install all the grunt dependencies you need.
 
 ## ToDo:
-- autoclose 1st one when opening a second infoWindow
+- autoclosed infoWindows  when opening a second infoWindow
 - add like button on infoWindows, clicks saved to Firebase and total displayed on infoWindows
+- optimise images delivery from externakl serveer by having different styles depnding on screensize
