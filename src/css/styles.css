@@ -9,20 +9,40 @@ html, body {
     height: 100%;
 }
 
+/* Styles for Google Maps info windows */
+.info-card-wide {
+    width: 512px;
+}
+.info-card-wide > .mdl-card__title {
+    height: 200px;
+}
+.info-card-text {
+    padding: 10px;
+    text-align: justify;
+    background: rgba(255, 255, 255, 0.8);
+}
+
 /* Default Style to center an element */
 .center {
-	margin: auto auto;
+    margin: auto auto;
 }
 
 /* Default Style to hide an element */
 .hide {
-	display: none;
+    display: none;
 }
 
 /* Style for the admin card to add location in firebase */
 .admin-inputcard {
-	min-width: 80%
+    min-width: 80%
 }
 .mdl-textfield {
-	width: 90%
+    width: 90%
+}
+
+/* On small size screen, the infobox should not as wide*/
+@media (max-width: 479px) {
+    .info-card-wide {
+        width: 250px;
+    }
 }
