@@ -11,8 +11,10 @@ Serving HTTP on 0.0.0.0 port 8000 ...
 It means the server is up and running on your computer on port 8000. You can type http://localhost:8000/ into the address bar of a web browser to see the web site.
 
 ### Use:
--The page will try to get your device location, depending on your settings, you will see a warning about this. If you agree to share the location with the browser, the map will center to where you are. If not, you dont' want to share it or it can be accessed, the map will center to a default lat 0, lng 0.
--You will see on the left the list of locations, you can click on each
+- When loaded the page will try to get your device location, depending on your settings, you will see a warning about this. If you agree to share the location with the browser, the map will center to where you are. If not, you dont' want to share it or it can be accessed, the map will center to a default lat 0, lng 0.
+- You will see on the left the list of locations, you can click on each location to open an info windows on the map
+- You can also click any marker on teh map to see information and photo corresponding to this location.
+- It is possible to filter by using the search text field on top of the list
 
 ### Build:
 Use ```grunt``` to get the processed files in ```/dist``` based on the source in ```/src```.
