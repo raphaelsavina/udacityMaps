@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Chrome on Android -->
-    <meta name="theme-color" content="#ff0000">
+    <meta name="theme-color" content="#fff">
     <title>My Map Project for Udacity</title>
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.blue_grey-blue.min.css">
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
@@ -26,19 +26,20 @@
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">My Photos Map</span>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="search" id="searchlabel">
                     <i class="material-icons">search</i>
                 </label>
                 <div class="mdl-textfield__expandable-holder">
                     <input class="mdl-textfield__input" type="text" id="search" data-bind="value: searchLocation, valueUpdate: 'keyup'" autocomplete="off">
-                    <label class="mdl-textfield__label" for="search">You can search location</label>
                 </div>
+                    <div class="mdl-tooltip" for="search">You can filter locations</div>
             </div>
             <nav class="mdl-navigation" data-bind="foreach: filteredLocations">
                 <button class="mdl-button" data-bind="click: openInfoWindow, text: title, attr: {id: $index}"></button>
             </nav>
                 <!-- Spinner -->
             <div class="mdl-spinner mdl-js-spinner is-active center"></div>
+            <div id="error" class="center"></div>
         </div>
     </div>
 
@@ -57,7 +58,9 @@
     <!-- /build -->
 
     <!-- my key: AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU&callback=initGoogleMaps">
+    <!-- script for GoogleMaps, on success call to initGoogleMaps -->
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCmxfYO4TcJ9w-52eiU7EoK_gcpreZPfPU&callback=initGoogleMaps">
     </script>
 
 
